@@ -1,0 +1,8 @@
+[package]
+name = "sigmaos-releng"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Release engineering automation — SigmaOS component inspired by Arch Linux infrastructure."
+
+[dependencies]
