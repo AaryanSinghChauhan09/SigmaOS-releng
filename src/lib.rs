@@ -7,14 +7,14 @@ use std::fmt;
 
 /// Errors produced by this component. Fail-fast: errors are returned, not panicked.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Sigmaos_relengError {
+pub enum RelengError {
     /// The requested operation is not valid in the current state.
     InvalidState,
     /// Input failed validation.
     InvalidInput(String),
 }
 
-impl fmt::Display for Sigmaos_relengError {
+impl fmt::Display for RelengError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::InvalidState => write!(f, "invalid state"),
@@ -23,20 +23,20 @@ impl fmt::Display for Sigmaos_relengError {
     }
 }
 
-impl std::error::Error for Sigmaos_relengError {}
+impl std::error::Error for RelengError {}
 
 /// Core component type. Holds configuration; performs no I/O by default.
 #[derive(Debug, Clone, Default)]
-pub struct Sigmaos_releng {
+pub struct Releng {
     name: String,
 }
 
-impl Sigmaos_releng {
+impl Releng {
     /// Create a new component instance. Fails fast on empty names.
-    pub fn new(name: impl Into<String>) -> Result<Self, Sigmaos_relengError> {
+    pub fn new(name: impl Into<String>) -> Result<Self, RelengError> {
         let name = name.into();
         if name.trim().is_empty() {
-            return Err(Sigmaos_relengError::InvalidInput("name must not be empty".into()));
+            return Err(RelengError::InvalidInput("name must not be empty".into()));
         }
         Ok(Self { name })
     }
@@ -47,9 +47,9 @@ impl Sigmaos_releng {
     }
 
     /// Perform the component's primary action. Returns a deterministic result.
-    pub fn run(&self) -> Result<String, Sigmaos_relengError> {
+    pub fn run(&self) -> Result<String, RelengError> {
         if self.name.is_empty() {
-            return Err(Sigmaos_relengError::InvalidState);
+            return Err(RelengError::InvalidState);
         }
         Ok(format!("{}: ok", self.name))
     }
@@ -62,18 +62,18 @@ mod tests {
     #[test]
     fn new_rejects_empty_name() {
         // Arrange / Act / Assert
-        assert!(matches!(Sigmaos_releng::new("  "), Err(Sigmaos_relengError::InvalidInput(_))));
+        assert!(matches!(Releng::new("  "), Err(RelengError::InvalidInput(_))));
     }
 
     #[test]
     fn run_returns_deterministic_result() {
-        let c = Sigmaos_releng::new("test").unwrap();
+        let c = Releng::new("test").unwrap();
         assert_eq!(c.run().unwrap(), "test: ok");
     }
 
     #[test]
     fn name_is_accessible() {
-        let c = Sigmaos_releng::new("abc").unwrap();
+        let c = Releng::new("abc").unwrap();
         assert_eq!(c.name(), "abc");
     }
 }
