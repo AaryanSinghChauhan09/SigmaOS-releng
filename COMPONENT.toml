@@ -3,7 +3,7 @@ name = "SigmaOS-releng"
 tier = 2
 stability = "scaffold"
 language = "rust"
-description = "releng component"
+description = "SigmaOS releng component (Arch Linux inspired)"
 upstream = []
 
 [contract]
