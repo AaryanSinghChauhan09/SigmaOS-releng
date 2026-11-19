@@ -1,8 +1,15 @@
 [package]
-name = "sigmaos-releng"
+name = "SigmaOS-releng"
 version = "0.1.0"
 edition = "2021"
-license = "MIT"
-description = "Release engineering automation — SigmaOS component inspired by Arch Linux infrastructure."
+license = "Apache-2.0"
+description = "SigmaOS releng component"
+
+[lib]
+name = "releng"
+path = "src/lib.rs"
 
 [dependencies]
+thiserror = "1"
+
+[dev-dependencies]
