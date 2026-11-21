@@ -1,16 +1,16 @@
 [component]
 name = "SigmaOS-releng"
 tier = 2
-stability = "scaffold"
+stability = "beta"
 language = "rust"
 description = "SigmaOS releng component (Arch Linux inspired)"
-upstream = []
+upstream = ["https://github.com/archlinux/releng"]
 
 [contract]
-provides = ["component"]
+provides = ["ipxe-generator", "codesign-plan", "release-model"]
 depends_on = []
 
 [maturity]
 status = "Implemented"
-test_evidence = "Compiles and passes AAA unit tests"
+test_evidence = "cargo test: 10 tests pass (ipxe render, mirror grouping, codesign plan)"
 next_milestone = "Hardware and runtime integration"
